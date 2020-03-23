@@ -89,8 +89,8 @@ public class Main {
 
 
 
-        boolean end=false;
-        while (!end) {
+
+        while (true) {
             System.out.println("Enter parameters");
             String manualInsert = myScanner.nextLine();
             manualInsert = manualInsert.replaceAll(",", ".").trim();
