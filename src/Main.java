@@ -9,20 +9,16 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner myScanner = new Scanner(System.in);
-        // System.out.println("Enter iris_training.txt path");
-        //String irisTrainingPath = myScanner.nextLine().trim();
-        //System.out.println("Enter iris_test.txt path");
-        //String irisTestPath = myScanner.nextLine();
-        //System.out.println("Enter k parameter");
-        //int k = Integer.parseInt(myScanner.nextLine());
-        //System.out.println();
+        System.out.println("Enter iris_training.txt path");
+        String irisTrainingPath = myScanner.nextLine().trim();
+        System.out.println("Enter iris_test.txt path");
+        String irisTestPath = myScanner.nextLine();
+        System.out.println("Enter k parameter");
+        int k = Integer.parseInt(myScanner.nextLine());
+        System.out.println();
 
-        String irisTrainingPath = "C:\\Users\\Michał\\Desktop\\iris_training.txt";
-        String irisTestPath = "C:\\Users\\Michał\\Desktop\\iris_test.txt";
-        int k = 3;
         //C:\Users\Michał\Desktop\iris_training.txt
         //C:\Users\Michał\Desktop\iris_test.txt
-        // 4,8    	 3,4    	 1,9    	 0,2
         List<Iris> trainingList = readFile(irisTrainingPath);
         List<Iris> testList = readFile(irisTestPath);
         int correctMatch = 0;
@@ -43,6 +39,7 @@ public class Main {
             });
 
             Map<String, Integer> hashMap = new HashMap<>();
+
             //wkładam typ i ilość wystąpień k sąsiadów testIris
             for (int i = 0; i < k; i++) {
 
@@ -53,7 +50,6 @@ public class Main {
                 hashMap.put(type, hashMap.get(type) + 1);
 
             }
-
 
             int matched = 0;
             String matchedType = "";
@@ -76,7 +72,8 @@ public class Main {
                 }
 
             }
-            //Jeśli typ sąsiada jest taki sam jak typ testIris, to znaczy, że jest poprawnym sąsiadem
+
+            //Jeśli najczęstszy jest taki sam jak typ testIris, to znaczy, że jest poprawnie
             if (testIris.getType().equals(matchedType))
                 correctMatch++;
 
@@ -92,7 +89,8 @@ public class Main {
 
 
 
-        while (true) {
+        boolean end=false;
+        while (!end) {
             System.out.println("Enter parameters");
             String manualInsert = myScanner.nextLine();
             manualInsert = manualInsert.replaceAll(",", ".").trim();
@@ -120,6 +118,7 @@ public class Main {
                 }
             }
             System.out.println("Typ: " + manualType);
+
         }
     }
 
