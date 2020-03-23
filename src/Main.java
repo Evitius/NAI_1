@@ -17,8 +17,6 @@ public class Main {
         int k =Integer.parseInt(myScanner.nextLine());
         System.out.println();
 
-        //C:\\Users\\Michał\\Desktop\\iris_training.txt
-        //C:\\Users\\Michał\\Desktop\\iris_test.txt
         List<Iris> trainingList = readFile(irisTrainingPath);
         List<Iris> testList = readFile(irisTestPath);
         int correctMatch = 0;
@@ -27,9 +25,11 @@ public class Main {
 
         for (Iris testIris : testList) {
 
+            //obliczam odległość danego rekordu testIris od każdego elementu trainingList
             for (Iris trainingIris : trainingList)
                 trainingIris.setRange(testIris);
 
+            //sortuję elementy trainingList według odległości rosnąco
             Collections.sort(trainingList, new Comparator<Iris>() {
                 @Override
                 public int compare(Iris i, Iris ii) {
@@ -38,6 +38,7 @@ public class Main {
             });
 
 
+            //wkładam typ i ilość wystąpień k sąsiadów testIris
             for (int i = 0; i < k; i++) {
 
                 String type = trainingList.get(i).getType();
@@ -51,6 +52,7 @@ public class Main {
             int matched = 0;
             String matchedType = "";
 
+            //determinuję najczęściej występujący typ
             for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
 
                 if (entry.getValue() > matched) {
@@ -60,13 +62,14 @@ public class Main {
 
                     double coinFlip = Math.random() * 2;
 
-                    //jesli wylosuje się 1 to zamieniam wartosci na nowe, jesli wylosuje sie 0 to zostawiam stare wartosci
+                    //jesli wylosuje się > 0.5 to zamieniam wartosci na nowe, jesli wylosuje sie <=0.5 to zostawiam stare wartosci
                     if (coinFlip > 0.5) {
                         matched = entry.getValue();
                         matchedType = entry.getKey();
                     }
                 }
             }
+            //Jeśli typ sąsiada jest taki sam jak typ testIris, to znaczy, że jest poprawnym sąsiadem
                 if (matchedType.equals(testIris.getType()))
                     correctMatch++;
 
