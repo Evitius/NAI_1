@@ -10,6 +10,7 @@ public class Iris {
         this.type=id;
     }
 
+    //obliczanie odległości sąsiadów
     public void setRange(Iris otherIris)
     {
         double tempRange = 0;
