@@ -27,4 +27,5 @@ public class Iris {
     public String getType() {
         return type;
     }
+    public double[] getValues(){ return values;}
 }

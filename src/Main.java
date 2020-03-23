@@ -9,18 +9,23 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner myScanner = new Scanner(System.in);
-        System.out.println("Enter iris_training.txt path");
-        String irisTrainingPath = myScanner.nextLine().trim();
-        System.out.println("Enter iris_test.txt path");
-        String irisTestPath = myScanner.nextLine();
-        System.out.println("Enter k parameter");
-        int k =Integer.parseInt(myScanner.nextLine());
-        System.out.println();
+        // System.out.println("Enter iris_training.txt path");
+        //String irisTrainingPath = myScanner.nextLine().trim();
+        //System.out.println("Enter iris_test.txt path");
+        //String irisTestPath = myScanner.nextLine();
+        //System.out.println("Enter k parameter");
+        //int k = Integer.parseInt(myScanner.nextLine());
+        //System.out.println();
 
+        String irisTrainingPath = "C:\\Users\\Michał\\Desktop\\iris_training.txt";
+        String irisTestPath = "C:\\Users\\Michał\\Desktop\\iris_test.txt";
+        int k = 3;
+        //C:\Users\Michał\Desktop\iris_training.txt
+        //C:\Users\Michał\Desktop\iris_test.txt
+        // 4,8    	 3,4    	 1,9    	 0,2
         List<Iris> trainingList = readFile(irisTrainingPath);
         List<Iris> testList = readFile(irisTestPath);
         int correctMatch = 0;
-        Map<String, Integer> hashMap = new HashMap<>();
 
 
         for (Iris testIris : testList) {
@@ -37,7 +42,7 @@ public class Main {
                 }
             });
 
-
+            Map<String, Integer> hashMap = new HashMap<>();
             //wkładam typ i ilość wystąpień k sąsiadów testIris
             for (int i = 0; i < k; i++) {
 
@@ -45,9 +50,10 @@ public class Main {
 
                 hashMap.putIfAbsent(type, 0);
 
-                hashMap.put(type, hashMap.get(type)+1);
+                hashMap.put(type, hashMap.get(type) + 1);
 
             }
+
 
             int matched = 0;
             String matchedType = "";
@@ -68,10 +74,11 @@ public class Main {
                         matchedType = entry.getKey();
                     }
                 }
+
             }
             //Jeśli typ sąsiada jest taki sam jak typ testIris, to znaczy, że jest poprawnym sąsiadem
-                if (matchedType.equals(testIris.getType()))
-                    correctMatch++;
+            if (testIris.getType().equals(matchedType))
+                correctMatch++;
 
         }
 
@@ -79,9 +86,42 @@ public class Main {
         double accuracy = (correctMatch * 1.0 / testList.size() * 1.0) * 100.0;
 
         System.out.println("Ilość poprawnych sąsiadów: " + correctMatch + " || Dokładność: " + accuracy + "%");
+
+
+
+
+
+
+        while (true) {
+            System.out.println("Enter parameters");
+            String manualInsert = myScanner.nextLine();
+            manualInsert = manualInsert.replaceAll(",", ".").trim();
+            String[] tmp = manualInsert.split("\\s+");
+            double[] manualvalues = new double[tmp.length];
+
+            for (int i = 0; i < tmp.length; i++) {
+                if (!tmp[i].isEmpty())
+                    manualvalues[i] = Double.parseDouble(tmp[i]);
+            }
+
+            String manualType = "";
+
+            for (Iris trainingIris : trainingList) {
+
+                int checker = 0;
+
+                for (int i = 0; i < trainingIris.getValues().length; i++) {
+
+                    if (trainingIris.getValues()[i] == manualvalues[i])
+                        checker++;
+
+                    if (manualvalues.length == checker)
+                        manualType = trainingIris.getType();
+                }
+            }
+            System.out.println("Typ: " + manualType);
         }
-
-
+    }
 
 
 
@@ -96,7 +136,7 @@ public class Main {
 
             while( (line= br.readLine()) != null ) {
 
-                line=line.replaceAll(",",".");
+                line=line.replaceAll(",",".").trim();
                 String[] tmp = line.split("\\s+");
                 double[] values= new double[tmp.length -1];
                 String typeOfIris= tmp[tmp.length-1];
@@ -105,6 +145,8 @@ public class Main {
                     if(!tmp[i].isEmpty())
                         values[i]=Double.parseDouble(tmp[i]);
                 }
+
+
                 tempList.add(new Iris(values, typeOfIris));
             }
         }
