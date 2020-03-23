@@ -17,8 +17,8 @@ public class Main {
         int k =Integer.parseInt(myScanner.nextLine());
         System.out.println();
 
-        //String irisTrainingPath = "C:\\Users\\Michał\\Desktop\\iris_training.txt";
-        //String irisTestPath = "C:\\Users\\Michał\\Desktop\\iris_test.txt";
+        //C:\\Users\\Michał\\Desktop\\iris_training.txt
+        //C:\\Users\\Michał\\Desktop\\iris_test.txt
         List<Iris> trainingList = readFile(irisTrainingPath);
         List<Iris> testList = readFile(irisTestPath);
         int correctMatch = 0;
@@ -74,6 +74,7 @@ public class Main {
 
 
         double accuracy = (correctMatch * 1.0 / testList.size() * 1.0) * 100.0;
+
         System.out.println("Ilość poprawnych sąsiadów: " + correctMatch + " || Dokładność: " + accuracy + "%");
         }
 
